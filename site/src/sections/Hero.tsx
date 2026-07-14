@@ -44,7 +44,7 @@ export default function Hero() {
 
         <motion.p className="hero__subtitle" variants={fadeUp}>
           Охрана административных зданий, строительных объектов, складов и
-          агропредприятий в {COMPANY.region.replace('Воронеж и', 'Воронеже и')}.
+          агропредприятий в Воронеже и Воронежской области.
         </motion.p>
 
         <motion.div className="hero__actions" variants={fadeUp}>

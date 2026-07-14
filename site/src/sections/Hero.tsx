@@ -5,6 +5,7 @@
  */
 import { Suspense, lazy } from 'react'
 import { motion } from 'framer-motion'
+import LogoEmblem from '../components/LogoEmblem'
 import { COMPANY } from '../data/company'
 
 // 3D-сцена грузится лениво: не блокирует первую отрисовку (80/20 по скорости)
@@ -55,6 +56,16 @@ export default function Hero() {
             Наши услуги
           </a>
         </motion.div>
+      </motion.div>
+
+      {/* --- Эмблема со змеёй справа (скрыта на мобильных) --- */}
+      <motion.div
+        className="hero__emblem"
+        initial={{ opacity: 0, x: 60 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <LogoEmblem size={460} withCaption={false} />
       </motion.div>
 
       {/* Индикатор скролла */}

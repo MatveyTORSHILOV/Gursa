@@ -6,7 +6,6 @@
  */
 import { useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import SnakeEmblem from '../components/SnakeEmblem'
 import { COMPANY } from '../data/company'
 
 /** Интерактивная визитка с эффектом наклона за курсором */
@@ -44,7 +43,14 @@ function TiltCard() {
       >
         {/* Шапка визитки: эмблема + название */}
         <div className="business-card__head">
-          <SnakeEmblem size={64} animated={false} />
+          <img
+            src="/logo/gyurza-emblem-512.webp"
+            alt=""
+            width={72}
+            height={72}
+            loading="lazy"
+            className="business-card__logo"
+          />
           <div>
             <b className="gold-text">{COMPANY.name}</b>
             <small>{COMPANY.tagline}</small>

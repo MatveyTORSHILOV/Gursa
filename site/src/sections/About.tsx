@@ -5,7 +5,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import SnakeEmblem from '../components/SnakeEmblem'
+import LogoEmblem from '../components/LogoEmblem'
 import { COMPANY } from '../data/company'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -59,9 +59,9 @@ export default function About() {
           </p>
         </div>
 
-        {/* --- Правая колонка: анимированная эмблема со змеёй --- */}
+        {/* --- Правая колонка: фирменная эмблема со змеёй --- */}
         <div className="about__emblem">
-          <SnakeEmblem size={280} />
+          <LogoEmblem size={320} />
           <p className="about__emblem-caption">
             Гюрза — символ молниеносной реакции и абсолютного контроля территории
           </p>

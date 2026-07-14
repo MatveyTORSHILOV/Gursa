@@ -185,6 +185,15 @@
   gap: 1rem;
 }
 
+/* Эмблема со змеёй в правой части hero */
+.hero__emblem {
+  position: absolute;
+  right: clamp(1rem, 6vw, 7rem);
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 1;
+}
+
 /* Мышка-индикатор внизу экрана */
 .hero__scroll-hint {
   position: absolute;
@@ -540,6 +549,57 @@ h2 {
   pointer-events: none;
 }
 
+/* ===================== LOGO EMBLEM ===================== */
+
+.logo-emblem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.logo-emblem__img-wrap {
+  position: relative;
+  /* Смешивание: чёрный фон картинки растворяется на тёмных секциях.
+     Блендим обёртку целиком — transform-анимации внутри не ломают эффект */
+  mix-blend-mode: screen;
+}
+
+.logo-emblem__img-wrap img {
+  position: relative;
+  z-index: 1;
+  /* Радиальная маска: углы чёрного квадрата плавно уходят в прозрачность,
+     сота и змея остаются полностью видимыми */
+  -webkit-mask-image: radial-gradient(circle, #000 62%, transparent 88%);
+  mask-image: radial-gradient(circle, #000 62%, transparent 88%);
+}
+
+/* Пульсирующее золотое свечение позади соты */
+.logo-emblem__glow {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, transparent 68%);
+  filter: blur(18px);
+}
+
+/* Рукописная подпись «Гюрза» — как на фирменной визитке */
+.logo-emblem__caption {
+  font-family: 'Marck Script', cursive;
+  font-size: 2.2rem;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-top: -0.4rem;
+}
+
+/* Логотип на визитке */
+.business-card__logo {
+  mix-blend-mode: screen;
+  flex-shrink: 0;
+}
+
 /* ===================== FOOTER ===================== */
 
 .footer {
@@ -596,6 +656,13 @@ h2 {
 }
 
 /* ===================== АДАПТИВ ===================== */
+
+/* Широкий планшет: прячем эмблему в hero, чтобы не наезжала на текст */
+@media (max-width: 1180px) {
+  .hero__emblem {
+    display: none;
+  }
+}
 
 /* Планшет */
 @media (max-width: 1024px) {

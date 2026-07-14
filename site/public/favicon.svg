@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Фавикон: золотой шестиугольник-сота на тёмном фоне -->
-  <rect width="64" height="64" rx="12" fill="#10141c"/>
-  <path d="M32 8 L52 20 L52 44 L32 56 L12 44 L12 20 Z" fill="none" stroke="#d4af37" stroke-width="3"/>
-  <path d="M32 20 L42 26 L42 38 L32 44 L22 38 L22 26 Z" fill="#d4af37"/>
-</svg>

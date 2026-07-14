@@ -65,17 +65,7 @@ export default function Hero() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <LogoEmblem size={400} variant="full" />
-      </motion.div>
-
-      {/* Индикатор скролла */}
-      <motion.div
-        className="hero__scroll-hint"
-        aria-hidden="true"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-      >
-        <span />
+        <LogoEmblem size={430} variant="icon" />
       </motion.div>
     </section>
   )

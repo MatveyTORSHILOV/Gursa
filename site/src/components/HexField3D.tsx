@@ -1,5 +1,8 @@
 /**
- * ===== HexField3D — «дышащие» 3D-соты (React Three Fiber) =====
+ * ===== HexField3D — «дышащие» 3D-соты на чёрном фоне =====
+ *
+ * Чёрные соты + золотые акцентные. Возле курсора соты «вспыхивают»
+ * золотом (динамический instanceColor). Фон — чистый чёрный.
  */
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
@@ -23,7 +26,7 @@ function buildGrid(): Cell[] {
       const offsetX = row % 2 === 0 ? 0 : w / 2
       const x = (col - COLS / 2) * w + offsetX
       const y = (row - ROWS / 2) * h
-      const seed = ((row * 17 + col * 31) % 100) / 100 * Math.PI * 2
+      const seed = (((row * 17 + col * 31) % 100) / 100) * Math.PI * 2
       const wave = Math.sin(x * 0.55 + y * 0.4) * 0.5 + 0.5
       const isGold = wave > 0.58 || Math.sin(x * 1.7 + y * 2.1) > 0.72
       positions.push({ x, y, seed, isGold })
@@ -35,25 +38,33 @@ function buildGrid(): Cell[] {
 const GRID = buildGrid()
 const GOLD_CELLS = GRID.filter((c) => c.isGold)
 
+/* Базовые цвета сот */
+const COLOR_BLACK = new THREE.Color('#0d0d10')   // чёрные соты (не чистый #000 — чтобы грани читались)
+const COLOR_GOLD = new THREE.Color('#c9a227')
+const COLOR_GOLD_BRIGHT = new THREE.Color('#f0d98c')
+const COLOR_HOVER = new THREE.Color('#e8c766')   // вспышка под курсором
+
 function HexInstances() {
   const meshRef = useRef<THREE.InstancedMesh>(null)
   const dummy = useMemo(() => new THREE.Object3D(), [])
+  const tmpColor = useMemo(() => new THREE.Color(), [])
+
+  /* Базовый цвет каждой соты (чёрная или золотая) */
+  const baseColors = useMemo(
+    () =>
+      GRID.map((cell) =>
+        cell.isGold
+          ? COLOR_GOLD.clone().lerp(COLOR_GOLD_BRIGHT, Math.sin(cell.x + cell.y) * 0.5 + 0.5)
+          : COLOR_BLACK,
+      ),
+    [],
+  )
 
   const colors = useMemo(() => {
     const arr = new Float32Array(GRID.length * 3)
-    const dark = new THREE.Color('#1a2230')
-    const gold = new THREE.Color('#c9a227')
-    const goldBright = new THREE.Color('#e8c766')
-    GRID.forEach((cell, i) => {
-      const c = cell.isGold
-        ? gold.clone().lerp(goldBright, Math.sin(cell.x + cell.y) * 0.5 + 0.5)
-        : dark
-      arr[i * 3] = c.r
-      arr[i * 3 + 1] = c.g
-      arr[i * 3 + 2] = c.b
-    })
+    baseColors.forEach((c, i) => c.toArray(arr, i * 3))
     return arr
-  }, [])
+  }, [baseColors])
 
   const geometry = useMemo(() => {
     const geo = new THREE.CylinderGeometry(HEX_RADIUS, HEX_RADIUS, 0.42, 6)
@@ -69,21 +80,33 @@ function HexInstances() {
 
   useFrame(({ clock, pointer }) => {
     const mesh = meshRef.current
-    if (!mesh) return
+    if (!mesh?.instanceColor) return
     const t = clock.getElapsedTime()
+
+    // Координаты курсора в пространстве сетки
+    const px = pointer.x * 8
+    const py = pointer.y * 4
 
     GRID.forEach((cell, i) => {
       const wave =
         Math.sin(t * 0.7 + cell.x * 0.45 + cell.seed * 0.25) * 0.38 +
         Math.sin(t * 0.4 + cell.y * 0.6) * 0.28
-      const mouseInfluence =
-        Math.max(0, 1 - Math.hypot(cell.x - pointer.x * 8, cell.y - pointer.y * 4) / 4) * 0.7
+
+      // Близость курсора: 1 в центре, 0 дальше 3.2 единиц
+      const proximity = Math.max(0, 1 - Math.hypot(cell.x - px, cell.y - py) / 3.2)
+
       const goldLift = cell.isGold ? 0.15 : 0
-      dummy.position.set(cell.x, cell.y, wave + mouseInfluence + goldLift)
+      dummy.position.set(cell.x, cell.y, wave + proximity * 0.7 + goldLift)
       dummy.updateMatrix()
       mesh.setMatrixAt(i, dummy.matrix)
+
+      // Вспышка золотом под курсором: чёрные соты светлеют к золотому
+      tmpColor.copy(baseColors[i]).lerp(COLOR_HOVER, proximity * 0.85)
+      tmpColor.toArray(mesh.instanceColor!.array as Float32Array, i * 3)
     })
+
     mesh.instanceMatrix.needsUpdate = true
+    mesh.instanceColor.needsUpdate = true
     mesh.rotation.z = Math.sin(t * 0.05) * 0.025
   })
 
@@ -91,16 +114,17 @@ function HexInstances() {
     <instancedMesh ref={meshRef} args={[geometry, undefined, GRID.length]}>
       <meshStandardMaterial
         vertexColors
-        metalness={0.78}
-        roughness={0.32}
+        metalness={0.8}
+        roughness={0.35}
         flatShading
         emissive="#d4af37"
-        emissiveIntensity={0.1}
+        emissiveIntensity={0.05}
       />
     </instancedMesh>
   )
 }
 
+/** Тонкие золотые контуры поверх золотых сот */
 function GoldHexRings() {
   const meshRef = useRef<THREE.InstancedMesh>(null)
   const dummy = useMemo(() => new THREE.Object3D(), [])
@@ -151,12 +175,14 @@ export default function HexField3D() {
       style={{ position: 'absolute', inset: 0 }}
       aria-hidden="true"
     >
-      <fog attach="fog" args={['#161b24', 10, 22]} />
-      <ambientLight intensity={0.55} />
-      <directionalLight position={[4, 6, 8]} intensity={0.85} color="#fff8e8" />
-      <pointLight position={[-5, 3, 6]} intensity={55} color="#d4af37" />
-      <pointLight position={[8, -3, 5]} intensity={40} color="#f0d98c" />
-      <pointLight position={[0, 0, 8]} intensity={20} color="#e8c766" />
+      {/* Чёрный туман — соты растворяются в чёрном фоне */}
+      <fog attach="fog" args={['#000000', 10, 22]} />
+
+      <ambientLight intensity={0.35} />
+      <directionalLight position={[4, 6, 8]} intensity={0.6} color="#fff4d6" />
+      <pointLight position={[-5, 3, 6]} intensity={50} color="#d4af37" />
+      <pointLight position={[8, -3, 5]} intensity={35} color="#f0d98c" />
+
       <HexInstances />
       <GoldHexRings />
     </Canvas>

@@ -81,8 +81,8 @@
   border: 1px solid transparent;
   background:
     linear-gradient(var(--bg-deep), var(--bg-deep)) padding-box,
-    linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e) border-box;
-  background-size: 100% 100%, 280% 100%;
+    var(--gold-cycle) border-box;
+  background-size: 100% 100%, 200% 100%;
   background-position: 0 0, var(--shimmer-pos) 0;
   color: var(--gold-bright);
   transition: color var(--transition-fast), box-shadow var(--transition-fast);
@@ -111,19 +111,10 @@
   cursor: pointer;
 }
 
-/* Золотая CTA — синхронный перелив */
+/* Золотая CTA — синхронный бесшовный перелив */
 .btn--gold {
-  background: linear-gradient(
-    105deg,
-    #7a6418 0%,
-    #9a7b1e 18%,
-    #f0d98c 42%,
-    #e8c766 50%,
-    #d4af37 58%,
-    #9a7b1e 82%,
-    #7a6418 100%
-  );
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
   color: #14100a;
   box-shadow: 0 4px 24px rgba(212, 175, 55, 0.25);
@@ -153,17 +144,17 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  /* Осветлённый hero — золотые соты лучше видны */
-  background: linear-gradient(160deg, #1a2030 0%, #12161f 45%, #0e1118 100%);
+  /* Чёрный фон за золотыми сотами */
+  background: #000;
 }
 
-/* Вуаль слабее — больше просвечивают 3D-соты */
+/* Вуаль: мягкое затемнение только под текстом слева */
 .hero__veil {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 65% 55% at 28% 42%, rgba(18, 22, 31, 0.72) 0%, rgba(18, 22, 31, 0.25) 55%, transparent 100%),
-    linear-gradient(to top, #0e1118 0%, transparent 25%);
+    radial-gradient(ellipse 60% 55% at 26% 42%, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.25) 55%, transparent 100%),
+    linear-gradient(to top, #000 0%, transparent 22%);
   pointer-events: none;
 }
 
@@ -178,8 +169,8 @@
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
   -webkit-background-clip: text;
   background-clip: text;
@@ -213,28 +204,6 @@
   top: 50%;
   translate: 0 -50%;
   z-index: 1;
-}
-
-/* Мышка-индикатор внизу экрана */
-.hero__scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  translate: -50% 0;
-  width: 26px;
-  height: 42px;
-  border: 1.5px solid rgba(212, 175, 55, 0.5);
-  border-radius: 999px;
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-}
-
-.hero__scroll-hint span {
-  width: 3px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--gold);
 }
 
 /* ===================== ОБЩЕЕ ДЛЯ СЕКЦИЙ ===================== */
@@ -302,8 +271,8 @@ h2 {
 }
 
 .about__col strong {
-  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
   -webkit-background-clip: text;
   background-clip: text;
@@ -356,7 +325,14 @@ h2 {
   border: 1px solid var(--border-dark);
   border-radius: var(--radius);
   padding: 2rem 1.7rem;
+  height: 100%;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Ячейки грида и tilt-сцена растягиваются на всю высоту */
+.services__grid > div,
+.services__grid .tilt-scene {
+  height: 100%;
 }
 
 /* Hover: золотая обводка + мягкое свечение (подъём делает framer-motion) */
@@ -396,8 +372,8 @@ h2 {
 
 .advantages__rule {
   height: 2px;
-  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
   margin: 2.5rem 0;
   transform-origin: left;
@@ -448,8 +424,8 @@ h2 {
   top: 0.42em;
   width: 11px;
   height: 12px;
-  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
@@ -537,8 +513,8 @@ h2 {
   top: 0;
   bottom: 0;
   width: 5px;
-  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
-  background-size: 100% 280%;
+  background: var(--gold-cycle);
+  background-size: 100% 200%;
   background-position: 0 var(--shimmer-pos);
 }
 
@@ -628,25 +604,11 @@ h2 {
   pointer-events: none;
 }
 
-.header__logo svg {
-  flex-shrink: 0;
-}
-
-/* ===== GyurzaLogo — гибрид растр + SVG-сота ===== */
+/* ===== GyurzaLogo — золото-чёрная змея в золотой соте ===== */
 .gyurza-logo {
   position: relative;
   display: grid;
   place-items: center;
-}
-
-.gyurza-logo__snake {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  /* Чёрный фон растра растворяется на тёмных секциях */
-  mix-blend-mode: screen;
-  -webkit-mask-image: radial-gradient(circle, #000 58%, transparent 90%);
-  mask-image: radial-gradient(circle, #000 58%, transparent 90%);
 }
 
 .gyurza-logo__frame {
@@ -657,30 +619,38 @@ h2 {
   pointer-events: none;
 }
 
+/* Змея — прозрачный PNG, вписана в соту */
+.gyurza-logo__snake {
+  width: 74%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.25));
+}
+
+/* Рукописная подпись «Гюрза» (только в блоке «О компании») */
 .gyurza-logo__script {
   position: absolute;
-  bottom: 6%;
+  bottom: 9%;
   left: 50%;
   translate: -50% 0;
   font-family: 'Marck Script', cursive;
-  font-size: clamp(1.1rem, 18%, 2rem);
-  color: #f2f0eb;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  font-size: clamp(1.2rem, 16cqw, 2.4rem);
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
+  background-position: var(--shimmer-pos) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   pointer-events: none;
 }
 
-/* На белом фоне растр без screen-blend */
-.section--light .gyurza-logo__snake {
-  mix-blend-mode: normal;
-  -webkit-mask-image: none;
-  mask-image: none;
+/* С подписью — змею чуть выше и меньше, чтобы не пересекались */
+.gyurza-logo:has(.gyurza-logo__script) .gyurza-logo__snake {
+  width: 66%;
+  translate: 0 -8%;
 }
 
-.business-card__head .gyurza-logo__snake {
-  mix-blend-mode: screen;
-}
-
-.business-card__head svg,
+.business-card__head .gyurza-logo,
 .header__logo .gyurza-logo {
   flex-shrink: 0;
 }

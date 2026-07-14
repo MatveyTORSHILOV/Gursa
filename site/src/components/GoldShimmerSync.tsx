@@ -1,10 +1,9 @@
 /**
- * ===== GoldShimmerSync — единый «пульс» золотого перелива =====
+ * ===== GoldShimmerSync — единый бесшовный «пульс» золота =====
  *
- * Одна GSAP-анимация двигает CSS-переменную --shimmer-pos на <html>.
- * Все золотые элементы (текст, кнопки, линии, SVG-обводки) читают
- * одну и ту же позицию градиента — переливаются синхронно, как единая
- * золотая поверхность на всём сайте.
+ * Градиенты циклические (первый цвет == последний), поэтому сдвиг
+ * ровно на один период (200% при background-size:200%) даёт идеально
+ * бесшовный вечный цикл — без видимого «перезапуска».
  */
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
@@ -13,23 +12,23 @@ export default function GoldShimmerSync() {
   const tweenRef = useRef<gsap.core.Tween | null>(null)
 
   useEffect(() => {
-    const state = { pos: -0.4 }
+    const state = { pos: 0 }
     const globalGold = document.getElementById('globalGold')
     const fragGold = document.getElementById('fragGold')
 
     tweenRef.current = gsap.to(state, {
-      pos: 1.4,
-      duration: 5,
+      pos: 1,
+      duration: 6,
       repeat: -1,
       ease: 'none',
       onUpdate: () => {
-        const pct = `${state.pos * 100}%`
-        document.documentElement.style.setProperty('--shimmer-pos', pct)
+        // CSS: сдвиг на полный тайл (200% при size 200%) за цикл
+        document.documentElement.style.setProperty('--shimmer-pos', `${state.pos * 200}%`)
 
-        // Двигаем SVG-градиенты синхронно с CSS
+        // SVG: сдвиг координат на один период, spreadMethod="repeat" зашивает шов
         if (globalGold) {
-          globalGold.setAttribute('x1', String(state.pos - 0.3))
-          globalGold.setAttribute('x2', String(state.pos + 0.7))
+          globalGold.setAttribute('x1', String(state.pos))
+          globalGold.setAttribute('x2', String(state.pos + 1))
         }
         if (fragGold) {
           const shift = state.pos * 1440

@@ -1,26 +1,24 @@
 /**
- * ===== GyurzaLogo — эмблема как на визитке =====
+ * ===== GyurzaLogo — эмблема: золото-чёрная змея в золотой соте =====
  *
- * Детальная гравюрная змея (растр) + золотая сота с синхронным
- * переливом (SVG-обводка url(#globalGold)) + подпись «Гюрза».
+ * Змея — трафаретный стиль с визитки, перекрашена в золото,
+ * фон прозрачный. Сота — SVG-обводка с синхронным переливом.
+ * Подпись «Гюрза» — только в variant="full" (блок «О компании»).
  */
 import { motion } from 'framer-motion'
-import { useId } from 'react'
 
 type Props = {
   size?: number
+  /** full — с подписью «Гюрза», icon — только змея в соте */
   variant?: 'full' | 'icon'
   animated?: boolean
 }
 
-export default function GyurzaLogo({ size = 200, variant = 'full', animated = true }: Props) {
-  const maskId = useId().replace(/:/g, '')
-  const h = size * (variant === 'full' ? 1.12 : 1)
-
+export default function GyurzaLogo({ size = 200, variant = 'icon', animated = true }: Props) {
   return (
     <motion.div
       className="gyurza-logo"
-      style={{ width: size, height: h }}
+      style={{ width: size, height: size }}
       role="img"
       aria-label="ЧОО Гюрза — змея в золотом шестиграннике"
       initial={animated ? { opacity: 0, scale: 0.94 } : undefined}
@@ -28,27 +26,11 @@ export default function GyurzaLogo({ size = 200, variant = 'full', animated = tr
       viewport={{ once: true }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Гравюрная змея — детальная, как на фото визитки */}
-      <img
-        className="gyurza-logo__snake"
-        src={size > 120 ? '/logo/gyurza-emblem.webp' : '/logo/gyurza-emblem-512.webp'}
-        alt=""
-        width={size}
-        height={h}
-        loading="lazy"
-        decoding="async"
-      />
-
-      {/* Золотая сота поверх — переливается синхронно со всем сайтом */}
-      <svg className="gyurza-logo__frame" viewBox="0 0 200 224" fill="none" aria-hidden="true">
-        <defs>
-          <clipPath id={maskId}>
-            <path d="M100 10 L178 55 L178 145 L100 190 L22 145 L22 55 Z" />
-          </clipPath>
-        </defs>
+      {/* Золотая сота — переливается синхронно со всем сайтом */}
+      <svg className="gyurza-logo__frame" viewBox="0 0 200 200" fill="none" aria-hidden="true">
         <motion.path
           className="gold-stroke"
-          d="M100 10 L178 55 L178 145 L100 190 L22 145 L22 55 Z"
+          d="M100 8 L180 54 L180 146 L100 192 L20 146 L20 54 Z"
           stroke="url(#globalGold)"
           strokeWidth="3.5"
           initial={animated ? { pathLength: 0, opacity: 0 } : undefined}
@@ -57,14 +39,23 @@ export default function GyurzaLogo({ size = 200, variant = 'full', animated = tr
           transition={{ duration: 1.2 }}
         />
         <path
-          d="M100 22 L166 58 L166 142 L100 178 L34 142 L34 58 Z"
+          d="M100 19 L170 60 L170 140 L100 181 L30 140 L30 60 Z"
           stroke="url(#globalGold)"
           strokeWidth="1"
           opacity="0.5"
         />
       </svg>
 
-      {/* Рукописная подпись внутри соты (full) */}
+      {/* Золото-чёрная змея (прозрачный PNG) */}
+      <img
+        className="gyurza-logo__snake"
+        src={size > 160 ? '/logo/snake-gold.webp' : '/logo/snake-gold-small.webp'}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+
+      {/* Рукописная подпись — только в блоке «О компании» */}
       {variant === 'full' && (
         <span className="gyurza-logo__script" aria-hidden="true">
           Гюрза

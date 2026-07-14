@@ -36,46 +36,31 @@
 
   --container: 1180px;
 
-  /* Единая позиция золотого перелива (двигает GoldShimmerSync) */
-  --shimmer-pos: -40%;
-}
+  /* Единая позиция золотого перелива (двигает GoldShimmerSync, 0%→200%) */
+  --shimmer-pos: 0%;
 
-/* --- Синхронный золотой градиент для всех элементов --- */
-.gold-shimmer-bg {
-  background: linear-gradient(
+  /* Циклический золотой градиент: первый цвет == последний → бесшовный цикл */
+  --gold-cycle: linear-gradient(
     105deg,
-    #7a6418 0%,
-    #9a7b1e 18%,
-    #f0d98c 42%,
-    #e8c766 50%,
-    #d4af37 58%,
-    #9a7b1e 82%,
-    #7a6418 100%
+    #9a7b1e 0%,
+    #d4af37 30%,
+    #f0d98c 50%,
+    #d4af37 70%,
+    #9a7b1e 100%
   );
-  background-size: 280% 100%;
-  background-position: var(--shimmer-pos) 0;
 }
 
-/* Золотой текст — тот же градиент, что и кнопки/линии */
+/* Золотой текст — синхронный бесшовный перелив */
 .gold-text {
-  background: linear-gradient(
-    105deg,
-    #7a6418 0%,
-    #9a7b1e 18%,
-    #f0d98c 42%,
-    #e8c766 50%,
-    #d4af37 58%,
-    #9a7b1e 82%,
-    #7a6418 100%
-  );
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* SVG-обводки с золотым переливом */
+/* SVG-обводки с золотым свечением */
 .gold-stroke {
   filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.35));
 }
@@ -142,14 +127,8 @@ img, svg, canvas {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  background: linear-gradient(
-    105deg,
-    #9a7b1e 0%,
-    #f0d98c 45%,
-    #d4af37 55%,
-    #9a7b1e 100%
-  );
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
   -webkit-background-clip: text;
   background-clip: text;
@@ -160,14 +139,8 @@ img, svg, canvas {
   content: '';
   width: 36px;
   height: 1px;
-  background: linear-gradient(
-    105deg,
-    #9a7b1e 0%,
-    #f0d98c 45%,
-    #d4af37 55%,
-    #9a7b1e 100%
-  );
-  background-size: 280% 100%;
+  background: var(--gold-cycle);
+  background-size: 200% 100%;
   background-position: var(--shimmer-pos) 0;
 }
 

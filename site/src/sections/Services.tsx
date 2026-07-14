@@ -4,6 +4,7 @@
  * SVG-иконки инлайном (без emoji — чеклист ui-ux-pro-max).
  */
 import { motion } from 'framer-motion'
+import TiltCard from '../components/TiltCard'
 import { SERVICES } from '../data/company'
 
 /* --- Мини-набор SVG-иконок под наши услуги --- */
@@ -58,28 +59,27 @@ export default function Services() {
           viewport={{ once: true, margin: '-80px' }}
         >
           {SERVICES.map((service) => (
-            <motion.article
-              key={service.title}
-              className="service-card"
-              variants={cardRise}
-              // Hover: приподнимаем карточку (spring — живое premium-ощущение)
-              whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-            >
-              <div className="service-card__icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {ICONS[service.icon]}
-                </svg>
-              </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-            </motion.article>
+            <motion.div key={service.title} variants={cardRise}>
+              {/* Карточку можно «вертеть» курсором — как визитку в контактах */}
+              <TiltCard className="service-card" maxTilt={9}>
+                <article>
+                  <div className="service-card__icon" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      {ICONS[service.icon]}
+                    </svg>
+                  </div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </article>
+              </TiltCard>
+            </motion.div>
           ))}
         </motion.div>
       </div>

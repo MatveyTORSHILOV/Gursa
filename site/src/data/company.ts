@@ -37,14 +37,14 @@ export const SERVICES = [
     description:
       'Физическая охрана офисных и административных зданий, обеспечение порядка и безопасности персонала.',
     icon: 'building',
-    bg: 'services/building.jpg',
+    bg: 'services/building.webp',
   },
   {
     title: 'Строительные объекты',
     description:
       'Охрана строительных площадок, техники и материалов на всех этапах строительства.',
     icon: 'crane',
-    bg: 'services/construction.jpg',
+    bg: 'services/construction.jpeg',
   },
   {
     title: 'Складские помещения',
@@ -72,7 +72,7 @@ export const SERVICES = [
     description:
       'Экспертная оценка объекта, анализ вероятных угроз и разработка индивидуальной системы охраны.',
     icon: 'shield-search',
-    bg: 'services/analysis.jpg',
+    bg: 'services/analysis.png',
   },
 ] as const
 

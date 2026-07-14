@@ -1,21 +1,15 @@
 /**
  * ===== GyurzaLogo — эмблема: золото-чёрная змея в золотой соте =====
- *
- * Змея — трафаретный стиль с визитки, перекрашена в золото,
- * фон прозрачный. Сота — SVG-обводка с синхронным переливом.
- * Подпись «Гюрза» — только в variant="full" (блок «О компании»).
  */
 import { motion } from 'framer-motion'
 import { asset } from '../utils/asset'
 
 type Props = {
   size?: number
-  /** full — с подписью «Гюрза», icon — только змея в соте */
-  variant?: 'full' | 'icon'
   animated?: boolean
 }
 
-export default function GyurzaLogo({ size = 200, variant = 'icon', animated = true }: Props) {
+export default function GyurzaLogo({ size = 200, animated = true }: Props) {
   return (
     <motion.div
       className="gyurza-logo"
@@ -55,13 +49,6 @@ export default function GyurzaLogo({ size = 200, variant = 'icon', animated = tr
         loading="lazy"
         decoding="async"
       />
-
-      {/* Рукописная подпись — только в блоке «О компании» */}
-      {variant === 'full' && (
-        <span className="gyurza-logo__script" aria-hidden="true">
-          Гюрза
-        </span>
-      )}
     </motion.div>
   )
 }

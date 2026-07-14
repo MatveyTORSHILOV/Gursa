@@ -13,13 +13,20 @@ type Props = {
 export default function LogoEmblem({ size = 320, variant = 'full', floating = true }: Props) {
   return (
     <motion.figure
-      className="logo-emblem"
-      style={{ width: size }}
+      className={`logo-emblem${variant === 'full' ? ' logo-emblem--full' : ''}`}
+      style={{ width: size, height: variant === 'full' ? size : undefined }}
       initial={{ opacity: 0, scale: 0.92, y: 24 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
     >
+      {/* Подпись «Гюрза» — статична, за логотипом (только О компании) */}
+      {variant === 'full' && (
+        <span className="logo-emblem__script" aria-hidden="true">
+          Гюрза
+        </span>
+      )}
+
       <motion.div
         className="logo-emblem__wrap"
         animate={floating ? { y: [0, -10, 0] } : undefined}
@@ -31,7 +38,7 @@ export default function LogoEmblem({ size = 320, variant = 'full', floating = tr
           animate={{ opacity: [0.45, 0.85, 0.45], scale: [1, 1.08, 1] }}
           transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
         />
-        <GyurzaLogo size={size} variant={variant} />
+        <GyurzaLogo size={size} />
       </motion.div>
     </motion.figure>
   )

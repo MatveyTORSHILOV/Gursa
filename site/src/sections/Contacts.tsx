@@ -44,7 +44,7 @@ function TiltCard() {
       >
         {/* Шапка визитки: эмблема + название */}
         <div className="business-card__head">
-          <GyurzaLogo size={76} variant="icon" animated={false} />
+          <GyurzaLogo size={76} animated={false} />
           <div>
             <b className="gold-text">{COMPANY.name}</b>
             <small>{COMPANY.tagline}</small>

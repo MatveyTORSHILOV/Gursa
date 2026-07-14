@@ -6,6 +6,7 @@
 import { motion } from 'framer-motion'
 import TiltCard from '../components/TiltCard'
 import { SERVICES } from '../data/company'
+import { asset } from '../utils/asset'
 
 /* --- Мини-набор SVG-иконок под наши услуги --- */
 const ICONS: Record<string, React.ReactNode> = {
@@ -62,7 +63,12 @@ export default function Services() {
             <motion.div key={service.title} variants={cardRise}>
               {/* Карточку можно «вертеть» курсором — как визитку в контактах */}
               <TiltCard className="service-card" maxTilt={9}>
-                <article>
+                <article
+                  className="service-card__inner"
+                  style={{ backgroundImage: `url(${asset(service.bg)})` }}
+                >
+                  <div className="service-card__shade" aria-hidden="true" />
+                  <div className="service-card__body">
                   <div className="service-card__icon" aria-hidden="true">
                     <svg
                       viewBox="0 0 24 24"
@@ -77,6 +83,7 @@ export default function Services() {
                   </div>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
+                  </div>
                 </article>
               </TiltCard>
             </motion.div>

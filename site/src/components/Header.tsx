@@ -35,7 +35,7 @@ export default function Header() {
       <div className="container header__inner">
         {/* Логотип: мини-сота + название */}
         <a href="#top" className="header__logo" aria-label="ГЮРЗА — на главную">
-          <GyurzaLogo size={42} variant="icon" animated={false} />
+          <GyurzaLogo size={42} animated={false} />
           <span>
             <b className="gold-text">{COMPANY.name}</b>
             <small>{COMPANY.tagline}</small>

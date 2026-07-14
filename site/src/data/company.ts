@@ -37,36 +37,42 @@ export const SERVICES = [
     description:
       'Физическая охрана офисных и административных зданий, обеспечение порядка и безопасности персонала.',
     icon: 'building',
+    bg: 'services/building.jpg',
   },
   {
     title: 'Строительные объекты',
     description:
       'Охрана строительных площадок, техники и материалов на всех этапах строительства.',
     icon: 'crane',
+    bg: 'services/construction.jpg',
   },
   {
     title: 'Складские помещения',
     description:
       'Контроль сохранности товарно-материальных ценностей, охрана складов и логистических комплексов.',
     icon: 'warehouse',
+    bg: 'services/warehouse.jpg',
   },
   {
     title: 'Пропускной режим',
     description:
       'Организация контрольно-пропускного и внутриобъектового режима на охраняемой территории.',
     icon: 'checkpoint',
+    bg: 'services/checkpoint.jpg',
   },
   {
     title: 'Сельхозпредприятия',
     description:
       'Специализация: охрана агропредприятий и баз по приёмке, подработке, хранению и отпуску зерновых и масличной продукции.',
     icon: 'grain',
+    bg: 'services/farm.jpg',
   },
   {
     title: 'Анализ угроз',
     description:
       'Экспертная оценка объекта, анализ вероятных угроз и разработка индивидуальной системы охраны.',
     icon: 'shield-search',
+    bg: 'services/analysis.jpg',
   },
 ] as const
 

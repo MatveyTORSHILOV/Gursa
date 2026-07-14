@@ -3,7 +3,7 @@
  * Фон: HexField3D (дышащие соты). Поверх — заголовок, CTA
  * и золотая вертикальная полоса как на фирменной папке.
  */
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import LogoEmblem from '../components/LogoEmblem'
 import { COMPANY } from '../data/company'
@@ -21,11 +21,19 @@ const fadeUp = {
 }
 
 export default function Hero() {
+  const pointerRef = useRef({ x: 0, y: 0 })
+
+  const onHeroMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    pointerRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
+    pointerRef.current.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
+  }, [])
+
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" onMouseMove={onHeroMove}>
       {/* --- 3D-фон --- */}
       <Suspense fallback={null}>
-        <HexField3D />
+        <HexField3D pointerRef={pointerRef} />
       </Suspense>
 
       {/* Градиентная вуаль: затемняет соты под текстом, контраст 4.5:1+ */}

@@ -4,7 +4,7 @@
  * Чёрные соты + золотые акцентные. Возле курсора соты «вспыхивают»
  * золотом (динамический instanceColor). Фон — чистый чёрный.
  */
-import { useLayoutEffect, useMemo, useRef } from 'react'
+import { useLayoutEffect, useMemo, useRef, type RefObject } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -42,9 +42,14 @@ const GOLD_CELLS = GRID.filter((c) => c.isGold)
 const COLOR_BLACK = new THREE.Color('#0d0d10')   // чёрные соты (не чистый #000 — чтобы грани читались)
 const COLOR_GOLD = new THREE.Color('#c9a227')
 const COLOR_GOLD_BRIGHT = new THREE.Color('#f0d98c')
-const COLOR_HOVER = new THREE.Color('#e8c766')   // вспышка под курсором
+const COLOR_HOVER = new THREE.Color('#f5e6a8')   // яркая вспышка под курсором
+const COLOR_HOVER_DEEP = new THREE.Color('#d4af37')
 
-function HexInstances() {
+type HexInstancesProps = {
+  pointerRef: RefObject<{ x: number; y: number }>
+}
+
+function HexInstances({ pointerRef }: HexInstancesProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null)
   const dummy = useMemo(() => new THREE.Object3D(), [])
   const tmpColor = useMemo(() => new THREE.Color(), [])
@@ -78,30 +83,34 @@ function HexInstances() {
     mesh.instanceColor = new THREE.InstancedBufferAttribute(colors, 3)
   }, [colors])
 
-  useFrame(({ clock, pointer }) => {
+  useFrame(({ clock }) => {
     const mesh = meshRef.current
     if (!mesh?.instanceColor) return
     const t = clock.getElapsedTime()
 
-    // Координаты курсора в пространстве сетки
-    const px = pointer.x * 8
-    const py = pointer.y * 4
+    const ptr = pointerRef.current
+    const px = (ptr?.x ?? 0) * 8
+    const py = (ptr?.y ?? 0) * 4
 
     GRID.forEach((cell, i) => {
       const wave =
         Math.sin(t * 0.7 + cell.x * 0.45 + cell.seed * 0.25) * 0.38 +
         Math.sin(t * 0.4 + cell.y * 0.6) * 0.28
 
-      // Близость курсора: 1 в центре, 0 дальше 3.2 единиц
-      const proximity = Math.max(0, 1 - Math.hypot(cell.x - px, cell.y - py) / 3.2)
+      // Близость курсора: чем ближе — тем ярче золото
+      const proximity = Math.max(0, 1 - Math.hypot(cell.x - px, cell.y - py) / 4.8)
+      const glow = proximity * proximity
 
       const goldLift = cell.isGold ? 0.15 : 0
-      dummy.position.set(cell.x, cell.y, wave + proximity * 0.7 + goldLift)
+      dummy.position.set(cell.x, cell.y, wave + glow * 1.1 + goldLift)
       dummy.updateMatrix()
       mesh.setMatrixAt(i, dummy.matrix)
 
-      // Вспышка золотом под курсором: чёрные соты светлеют к золотому
-      tmpColor.copy(baseColors[i]).lerp(COLOR_HOVER, proximity * 0.85)
+      if (cell.isGold) {
+        tmpColor.copy(baseColors[i]).lerp(COLOR_HOVER, glow * 0.95)
+      } else {
+        tmpColor.copy(COLOR_BLACK).lerp(COLOR_HOVER_DEEP, glow * 0.92)
+      }
       tmpColor.toArray(mesh.instanceColor!.array as Float32Array, i * 3)
     })
 
@@ -118,7 +127,7 @@ function HexInstances() {
         roughness={0.35}
         flatShading
         emissive="#d4af37"
-        emissiveIntensity={0.05}
+        emissiveIntensity={0.12}
       />
     </instancedMesh>
   )
@@ -166,13 +175,17 @@ function GoldHexRings() {
   )
 }
 
-export default function HexField3D() {
+type Props = {
+  pointerRef: RefObject<{ x: number; y: number }>
+}
+
+export default function HexField3D({ pointerRef }: Props) {
   return (
     <Canvas
       dpr={[1, 1.8]}
       camera={{ position: [0, 0, 9], fov: 45 }}
       gl={{ antialias: true, alpha: true }}
-      style={{ position: 'absolute', inset: 0 }}
+      style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
       aria-hidden="true"
     >
       {/* Чёрный туман — соты растворяются в чёрном фоне */}
@@ -183,7 +196,7 @@ export default function HexField3D() {
       <pointLight position={[-5, 3, 6]} intensity={50} color="#d4af37" />
       <pointLight position={[8, -3, 5]} intensity={35} color="#f0d98c" />
 
-      <HexInstances />
+      <HexInstances pointerRef={pointerRef} />
       <GoldHexRings />
     </Canvas>
   )

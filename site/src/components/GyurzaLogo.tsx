@@ -6,6 +6,7 @@
  * Подпись «Гюрза» — только в variant="full" (блок «О компании»).
  */
 import { motion } from 'framer-motion'
+import { asset } from '../utils/asset'
 
 type Props = {
   size?: number
@@ -49,7 +50,7 @@ export default function GyurzaLogo({ size = 200, variant = 'icon', animated = tr
       {/* Золото-чёрная змея (прозрачный PNG) */}
       <img
         className="gyurza-logo__snake"
-        src={size > 160 ? '/logo/snake-gold.webp' : '/logo/snake-gold-small.webp'}
+        src={size > 160 ? asset('logo/snake-gold.webp') : asset('logo/snake-gold-small.webp')}
         alt=""
         loading="lazy"
         decoding="async"

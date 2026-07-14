@@ -35,6 +35,49 @@
   --transition-slow: 600ms var(--ease-smooth);
 
   --container: 1180px;
+
+  /* Единая позиция золотого перелива (двигает GoldShimmerSync) */
+  --shimmer-pos: -40%;
+}
+
+/* --- Синхронный золотой градиент для всех элементов --- */
+.gold-shimmer-bg {
+  background: linear-gradient(
+    105deg,
+    #7a6418 0%,
+    #9a7b1e 18%,
+    #f0d98c 42%,
+    #e8c766 50%,
+    #d4af37 58%,
+    #9a7b1e 82%,
+    #7a6418 100%
+  );
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
+}
+
+/* Золотой текст — тот же градиент, что и кнопки/линии */
+.gold-text {
+  background: linear-gradient(
+    105deg,
+    #7a6418 0%,
+    #9a7b1e 18%,
+    #f0d98c 42%,
+    #e8c766 50%,
+    #d4af37 58%,
+    #9a7b1e 82%,
+    #7a6418 100%
+  );
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* SVG-обводки с золотым переливом */
+.gold-stroke {
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.35));
 }
 
 /* --- Сброс --- */
@@ -88,13 +131,7 @@ img, svg, canvas {
   margin-inline: auto;
 }
 
-/* Золотой текст (заголовки-акценты) */
-.gold-text {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+/* Золотой текст (заголовки-акценты) — см. .gold-text выше с shimmer */
 
 /* Заголовок секции с маленьким золотым надзаголовком */
 .section-label {
@@ -105,14 +142,33 @@ img, svg, canvas {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold);
+  background: linear-gradient(
+    105deg,
+    #9a7b1e 0%,
+    #f0d98c 45%,
+    #d4af37 55%,
+    #9a7b1e 100%
+  );
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .section-label::before {
   content: '';
   width: 36px;
   height: 1px;
-  background: var(--gold-gradient);
+  background: linear-gradient(
+    105deg,
+    #9a7b1e 0%,
+    #f0d98c 45%,
+    #d4af37 55%,
+    #9a7b1e 100%
+  );
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
 }
 
 /* --- Доступность: уважаем reduced motion (чеклист ui-ux-pro-max) --- */

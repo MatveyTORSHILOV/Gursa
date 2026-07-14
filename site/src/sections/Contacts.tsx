@@ -6,6 +6,7 @@
  */
 import { useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import GyurzaLogo from '../components/GyurzaLogo'
 import { COMPANY } from '../data/company'
 
 /** Интерактивная визитка с эффектом наклона за курсором */
@@ -43,14 +44,7 @@ function TiltCard() {
       >
         {/* Шапка визитки: эмблема + название */}
         <div className="business-card__head">
-          <img
-            src="/logo/gyurza-emblem-512.webp"
-            alt=""
-            width={72}
-            height={72}
-            loading="lazy"
-            className="business-card__logo"
-          />
+          <GyurzaLogo size={76} variant="icon" animated={false} />
           <div>
             <b className="gold-text">{COMPANY.name}</b>
             <small>{COMPANY.tagline}</small>

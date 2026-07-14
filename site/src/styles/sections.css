@@ -76,12 +76,16 @@
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--gold);
   padding: 0.55rem 1.1rem;
-  border: 1px solid var(--border-dark);
   border-radius: 999px;
-  transition: background var(--transition-fast), color var(--transition-fast),
-    border-color var(--transition-fast);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--bg-deep), var(--bg-deep)) padding-box,
+    linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e) border-box;
+  background-size: 100% 100%, 280% 100%;
+  background-position: 0 0, var(--shimmer-pos) 0;
+  color: var(--gold-bright);
+  transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .header__cta:hover {
@@ -107,9 +111,20 @@
   cursor: pointer;
 }
 
-/* Золотая CTA: градиент + свечение при наведении */
+/* Золотая CTA — синхронный перелив */
 .btn--gold {
-  background: var(--gold-gradient);
+  background: linear-gradient(
+    105deg,
+    #7a6418 0%,
+    #9a7b1e 18%,
+    #f0d98c 42%,
+    #e8c766 50%,
+    #d4af37 58%,
+    #9a7b1e 82%,
+    #7a6418 100%
+  );
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
   color: #14100a;
   box-shadow: 0 4px 24px rgba(212, 175, 55, 0.25);
 }
@@ -138,16 +153,17 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--bg-deep);
+  /* Осветлённый hero — золотые соты лучше видны */
+  background: linear-gradient(160deg, #1a2030 0%, #12161f 45%, #0e1118 100%);
 }
 
-/* Вуаль поверх 3D-сцены: гарантирует читаемость текста */
+/* Вуаль слабее — больше просвечивают 3D-соты */
 .hero__veil {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 60% at 30% 45%, rgba(10, 13, 18, 0.88) 0%, rgba(10, 13, 18, 0.45) 60%, transparent 100%),
-    linear-gradient(to top, var(--bg-deep) 0%, transparent 30%);
+    radial-gradient(ellipse 65% 55% at 28% 42%, rgba(18, 22, 31, 0.72) 0%, rgba(18, 22, 31, 0.25) 55%, transparent 100%),
+    linear-gradient(to top, #0e1118 0%, transparent 25%);
   pointer-events: none;
 }
 
@@ -162,7 +178,12 @@
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gold);
+  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 1.2rem;
 }
 
@@ -224,8 +245,34 @@ section {
 
 /* Белые секции (как внутренний разворот буклета) */
 .section--light {
+  position: relative;
   background: var(--bg-light);
   color: var(--text-on-light);
+  overflow: hidden;
+}
+
+.section--light > .container,
+.section--light .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Золотые фрагменты сот на белом (как на фирменной папке) */
+.honey-fragments {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+.gold-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 .section--light h2 {
@@ -255,7 +302,12 @@ h2 {
 }
 
 .about__col strong {
-  color: var(--gold-deep);
+  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .about__emblem {
@@ -344,7 +396,9 @@ h2 {
 
 .advantages__rule {
   height: 2px;
-  background: var(--gold-gradient);
+  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
   margin: 2.5rem 0;
   transform-origin: left;
 }
@@ -394,7 +448,9 @@ h2 {
   top: 0.42em;
   width: 11px;
   height: 12px;
-  background: var(--gold-gradient);
+  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
+  background-size: 280% 100%;
+  background-position: var(--shimmer-pos) 0;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
@@ -481,7 +537,9 @@ h2 {
   top: 0;
   bottom: 0;
   width: 5px;
-  background: var(--gold-gradient);
+  background: linear-gradient(105deg, #9a7b1e, #f0d98c 45%, #d4af37 55%, #9a7b1e);
+  background-size: 100% 280%;
+  background-position: 0 var(--shimmer-pos);
 }
 
 .business-card__head {
@@ -555,48 +613,75 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
 }
 
-.logo-emblem__img-wrap {
+.logo-emblem__wrap {
   position: relative;
-  /* Смешивание: чёрный фон картинки растворяется на тёмных секциях.
-     Блендим обёртку целиком — transform-анимации внутри не ломают эффект */
-  mix-blend-mode: screen;
 }
 
-.logo-emblem__img-wrap img {
-  position: relative;
-  z-index: 1;
-  /* Радиальная маска: углы чёрного квадрата плавно уходят в прозрачность,
-     сота и змея остаются полностью видимыми */
-  -webkit-mask-image: radial-gradient(circle, #000 62%, transparent 88%);
-  mask-image: radial-gradient(circle, #000 62%, transparent 88%);
-}
-
-/* Пульсирующее золотое свечение позади соты */
 .logo-emblem__glow {
   position: absolute;
-  inset: 12%;
+  inset: 8%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, transparent 68%);
-  filter: blur(18px);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.32) 0%, transparent 68%);
+  filter: blur(20px);
+  pointer-events: none;
 }
 
-/* Рукописная подпись «Гюрза» — как на фирменной визитке */
-.logo-emblem__caption {
-  font-family: 'Marck Script', cursive;
-  font-size: 2.2rem;
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-top: -0.4rem;
+.header__logo svg {
+  flex-shrink: 0;
 }
 
-/* Логотип на визитке */
-.business-card__logo {
+/* ===== GyurzaLogo — гибрид растр + SVG-сота ===== */
+.gyurza-logo {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.gyurza-logo__snake {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Чёрный фон растра растворяется на тёмных секциях */
   mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(circle, #000 58%, transparent 90%);
+  mask-image: radial-gradient(circle, #000 58%, transparent 90%);
+}
+
+.gyurza-logo__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.gyurza-logo__script {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  translate: -50% 0;
+  font-family: 'Marck Script', cursive;
+  font-size: clamp(1.1rem, 18%, 2rem);
+  color: #f2f0eb;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+/* На белом фоне растр без screen-blend */
+.section--light .gyurza-logo__snake {
+  mix-blend-mode: normal;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.business-card__head .gyurza-logo__snake {
+  mix-blend-mode: screen;
+}
+
+.business-card__head svg,
+.header__logo .gyurza-logo {
   flex-shrink: 0;
 }
 

@@ -6,6 +6,7 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LogoEmblem from '../components/LogoEmblem'
+import HoneycombFragments from '../components/HoneycombFragments'
 import { COMPANY } from '../data/company'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -30,6 +31,7 @@ export default function About() {
 
   return (
     <section className="about section--light" id="about" ref={sectionRef}>
+      <HoneycombFragments />
       <div className="container about__grid">
         {/* --- Левая колонка: текст --- */}
         <div className="about__col">

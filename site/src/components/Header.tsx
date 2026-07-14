@@ -4,6 +4,7 @@
  */
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import GyurzaLogo from './GyurzaLogo'
 import { COMPANY } from '../data/company'
 
 /* Пункты навигации: якоря на секции */
@@ -34,10 +35,7 @@ export default function Header() {
       <div className="container header__inner">
         {/* Логотип: мини-сота + название */}
         <a href="#top" className="header__logo" aria-label="ГЮРЗА — на главную">
-          <svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true">
-            <path d="M32 6 L54 19 L54 45 L32 58 L10 45 L10 19 Z" fill="none" stroke="#d4af37" strokeWidth="3.5" />
-            <path d="M32 20 L43 26.5 L43 39.5 L32 46 L21 39.5 L21 26.5 Z" fill="#d4af37" />
-          </svg>
+          <GyurzaLogo size={42} variant="icon" animated={false} />
           <span>
             <b className="gold-text">{COMPANY.name}</b>
             <small>{COMPANY.tagline}</small>

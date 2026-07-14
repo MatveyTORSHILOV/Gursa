@@ -8,6 +8,8 @@
  *   → Advantages (почему мы) → Contacts (CTA) → Footer
  */
 import Header from './components/Header'
+import GoldShimmerSync from './components/GoldShimmerSync'
+import GoldDefs from './components/GoldDefs'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Services from './sections/Services'
@@ -18,6 +20,8 @@ import Footer from './components/Footer'
 export default function App() {
   return (
     <>
+      <GoldDefs />
+      <GoldShimmerSync />
       <Header />
       <main>
         <Hero />

@@ -65,7 +65,7 @@ export default function Hero() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <LogoEmblem size={460} withCaption={false} />
+        <LogoEmblem size={400} variant="full" />
       </motion.div>
 
       {/* Индикатор скролла */}

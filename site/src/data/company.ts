@@ -72,7 +72,7 @@ export const SERVICES = [
     description:
       'Экспертная оценка объекта, анализ вероятных угроз и разработка индивидуальной системы охраны.',
     icon: 'shield-search',
-    bg: 'services/analysis.png',
+    bg: 'services/analysis.avif',
   },
 ] as const
 

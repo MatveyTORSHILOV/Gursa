@@ -31,7 +31,7 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
       >
         <motion.path
           className="gold-stroke"
-          d="M100 -2 L189 49 L189 151 L100 202 L11 151 L11 49 Z"
+          d="M100 -2 L189 50.5 L189 151 L100 202 L11 151 L11 49 Z"
           stroke="url(#globalGold)"
           strokeWidth="4"
           strokeLinecap="square"
@@ -43,7 +43,7 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
           transition={{ duration: 1.2 }}
         />
         <path
-          d="M100 10 L178 56 L178 144 L100 190 L22 144 L22 56 Z"
+          d="M100 10 L178 57.2 L178 144 L100 190 L22 144 L22 56 Z"
           stroke="url(#globalGold)"
           strokeWidth="1.25"
           strokeLinecap="square"
@@ -58,8 +58,8 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
         className="gyurza-logo__snake"
         src={
           size > 160
-            ? asset('logo/snake-gold-premium-super.webp')
-            : asset('logo/snake-gold-premium-super-small.webp')
+            ? asset('logo/snake-gold-premium-super-puper.webp')
+            : asset('logo/snake-gold-premium-super-puper-small.webp')
         }
         alt=""
         loading="lazy"

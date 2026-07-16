@@ -9,6 +9,25 @@ type Props = {
   animated?: boolean
 }
 
+const CX = 100
+const CY = 100
+
+/** Вершина сверху — ровный шестиугольник без stroke-выпираний в углах */
+function hexPath(cx: number, cy: number, radius: number): string {
+  const points = [90, 30, -30, -90, -150, 150].map((deg) => {
+    const rad = (deg * Math.PI) / 180
+    return `${(cx + radius * Math.cos(rad)).toFixed(2)} ${(cy - radius * Math.sin(rad)).toFixed(2)}`
+  })
+  return `M${points[0]} L${points.slice(1).join(' L')} Z`
+}
+
+function hexRing(cx: number, cy: number, outerR: number, innerR: number): string {
+  return `${hexPath(cx, cy, outerR)} ${hexPath(cx, cy, innerR)}`
+}
+
+const OUTER_RING = hexRing(CX, CY, 102, 98)
+const INNER_RING = hexRing(CX, CY, 90, 88.75)
+
 export default function GyurzaLogo({ size = 200, animated = true }: Props) {
   return (
     <motion.div
@@ -21,7 +40,7 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
       viewport={{ once: true }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Золотая сота — переливается синхронно со всем сайтом */}
+      {/* Золотая сота — цельные кольца (fill), без stroke-стыков в вершине */}
       <svg
         className="gyurza-logo__frame"
         viewBox="-6 -6 212 212"
@@ -31,29 +50,20 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
       >
         <motion.path
           className="gold-stroke"
-          d="M100 -2 L189 49.8 L189 151 L100 202 L11 151 L11 49.8 Z"
-          stroke="url(#globalGold)"
-          strokeWidth="4"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          strokeMiterlimit="20"
-          initial={animated ? { pathLength: 0, opacity: 0 } : undefined}
-          whileInView={animated ? { pathLength: 1, opacity: 1 } : undefined}
+          d={OUTER_RING}
+          fill="url(#globalGold)"
+          fillRule="evenodd"
+          initial={animated ? { opacity: 0 } : undefined}
+          whileInView={animated ? { opacity: 1 } : undefined}
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
         />
         <path
-          d="M100 10 L178 57 L178 144 L100 190 L22 144 L22 57 Z"
-          stroke="url(#globalGold)"
-          strokeWidth="1.25"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          strokeMiterlimit="20"
+          d={INNER_RING}
+          fill="url(#globalGold)"
+          fillRule="evenodd"
           opacity="0.5"
         />
-        {/* Заплатка в вершине — убирает субпиксельный зазор между гранями */}
-        <path d="M100 -2.5 L103.8 3.2 L96.2 3.2 Z" fill="url(#globalGold)" />
-        <path d="M100 10 L102.1 14.4 L97.9 14.4 Z" fill="url(#globalGold)" opacity="0.5" />
       </svg>
 
       {/* Золото-чёрная змея (прозрачный PNG) */}

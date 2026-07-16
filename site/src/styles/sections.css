@@ -774,6 +774,34 @@ h2 {
     display: none; /* на мобильном оставляем логотип + телефон (80/20) */
   }
 
+  .header__inner {
+    gap: 0.45rem;
+  }
+
+  .header__logo {
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .header__logo b {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .header__logo small {
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Номер в одну строку — компактная плашка */
+  .header__cta {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.68rem;
+    letter-spacing: -0.02em;
+    padding: 0.4rem 0.55rem;
+  }
+
   .about__grid,
   .contacts__grid {
     grid-template-columns: 1fr;
@@ -794,5 +822,16 @@ h2 {
   .contacts__list li {
     grid-template-columns: 1fr;
     gap: 0.15rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .header__logo small {
+    display: none;
+  }
+
+  .header__cta {
+    font-size: 0.62rem;
+    padding: 0.38rem 0.45rem;
   }
 }

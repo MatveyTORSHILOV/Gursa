@@ -22,27 +22,33 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Золотая сота — переливается синхронно со всем сайтом */}
-      <svg className="gyurza-logo__frame" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <svg
+        className="gyurza-logo__frame"
+        viewBox="-6 -6 212 212"
+        fill="none"
+        overflow="visible"
+        aria-hidden="true"
+      >
         <motion.path
           className="gold-stroke"
-          d="M100 4 L182 53 L182 147 L100 196 L18 147 L18 53 Z"
+          d="M100 -2 L189 49 L189 151 L100 202 L11 151 L11 49 Z"
           stroke="url(#globalGold)"
           strokeWidth="4"
-          strokeLinecap="butt"
+          strokeLinecap="square"
           strokeLinejoin="miter"
-          strokeMiterlimit="12"
+          strokeMiterlimit="20"
           initial={animated ? { pathLength: 0, opacity: 0 } : undefined}
           whileInView={animated ? { pathLength: 1, opacity: 1 } : undefined}
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
         />
         <path
-          d="M100 15 L171 59 L171 141 L100 185 L29 141 L29 59 Z"
+          d="M100 10 L178 56 L178 144 L100 190 L22 144 L22 56 Z"
           stroke="url(#globalGold)"
           strokeWidth="1.25"
-          strokeLinecap="butt"
+          strokeLinecap="square"
           strokeLinejoin="miter"
-          strokeMiterlimit="12"
+          strokeMiterlimit="20"
           opacity="0.5"
         />
       </svg>
@@ -52,8 +58,8 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
         className="gyurza-logo__snake"
         src={
           size > 160
-            ? asset('logo/snake-gold-premium1.webp')
-            : asset('logo/snake-gold-premium1-small.webp')
+            ? asset('logo/snake-gold-premium-super.webp')
+            : asset('logo/snake-gold-premium-super-small.webp')
         }
         alt=""
         loading="lazy"

@@ -31,7 +31,7 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
       >
         <motion.path
           className="gold-stroke"
-          d="M100 -2 L189 50.5 L189 151 L100 202 L11 151 L11 49 Z"
+          d="M100 -2 L189 49.8 L189 151 L100 202 L11 151 L11 49.8 Z"
           stroke="url(#globalGold)"
           strokeWidth="4"
           strokeLinecap="square"
@@ -43,7 +43,7 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
           transition={{ duration: 1.2 }}
         />
         <path
-          d="M100 10 L178 57.2 L178 144 L100 190 L22 144 L22 56 Z"
+          d="M100 10 L178 57 L178 144 L100 190 L22 144 L22 57 Z"
           stroke="url(#globalGold)"
           strokeWidth="1.25"
           strokeLinecap="square"
@@ -51,6 +51,9 @@ export default function GyurzaLogo({ size = 200, animated = true }: Props) {
           strokeMiterlimit="20"
           opacity="0.5"
         />
+        {/* Заплатка в вершине — убирает субпиксельный зазор между гранями */}
+        <path d="M100 -2.5 L103.8 3.2 L96.2 3.2 Z" fill="url(#globalGold)" />
+        <path d="M100 10 L102.1 14.4 L97.9 14.4 Z" fill="url(#globalGold)" opacity="0.5" />
       </svg>
 
       {/* Золото-чёрная змея (прозрачный PNG) */}

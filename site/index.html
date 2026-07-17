@@ -27,14 +27,34 @@
       content="Профессиональная охрана объектов в Воронеже и Воронежской области с 2011 года. Административные здания, стройки, склады, агропредприятия."
     />
     <meta property="og:site_name" content="ЧОО «ГЮРЗА»" />
+    <meta property="og:image" content="https://gurza36.ru/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ЧОО Гюрза — частная охранная организация в Воронеже" />
+
+    <!-- ===== Twitter / Telegram preview ===== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ЧОО «ГЮРЗА» — Частная охранная организация в Воронеже" />
+    <meta
+      name="twitter:description"
+      content="Охрана объектов в Воронеже с 2011 года. Административные здания, стройки, склады, агропредприятия."
+    />
+    <meta name="twitter:image" content="https://gurza36.ru/og-image.png" />
+
+    <meta name="theme-color" content="#10141c" />
+    <meta name="geo.region" content="RU-VOR" />
+    <meta name="geo.placename" content="Воронеж" />
 
     <!-- ===== SEO: JSON-LD структурированные данные (LocalBusiness) ===== -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SecurityService",
+        "@id": "https://gurza36.ru/#organization",
         "name": "ЧОО «Гюрза»",
         "url": "https://gurza36.ru/",
+        "image": "https://gurza36.ru/og-image.png",
+        "logo": "https://gurza36.ru/favicon.png",
         "alternateName": "Частная охранная организация Гюрза",
         "description": "Частная охранная организация. Охрана административных зданий, строительных объектов, складских помещений, сельхозпредприятий и зерновых баз.",
         "foundingDate": "2011",
@@ -47,7 +67,21 @@
           "streetAddress": "ул. Солнечная, 17/1, офис 4",
           "addressCountry": "RU"
         },
-        "areaServed": "Воронеж и Воронежская область",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.6344,
+          "longitude": 39.1542
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Воронеж и Воронежская область"
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        },
         "founder": { "@type": "Person", "name": "Самофалов Михаил Иванович" }
       }
     </script>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: gurza36.ru
+Sitemap: https://gurza36.ru/sitemap.xml

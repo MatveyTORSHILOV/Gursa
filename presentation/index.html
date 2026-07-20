@@ -1,0 +1,498 @@
+<!doctype html>
+<!--
+  ЧОО «ГЮРЗА» — презентация проекта
+  System: Montserrat display + Inter body · #10141c / #d4af37 · editorial dark deck
+-->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>ЧОО «ГЮРЗА» — Презентация проекта</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1018;
+      --panel: #141b28;
+      --gold: #d4af37;
+      --gold-light: #f0d98c;
+      --gold-dim: rgba(212, 175, 55, 0.18);
+      --text: #eef1f6;
+      --muted: #9aa3b5;
+      --line: rgba(212, 175, 55, 0.22);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; height: 100%; overflow: hidden;
+      background: #05070b;
+      font-family: Inter, sans-serif;
+      color: var(--text);
+    }
+    .stage { position: fixed; inset: 0; display: grid; place-items: center; }
+    .canvas {
+      width: 1920px; height: 1080px;
+      transform-origin: center;
+      position: relative;
+      background: var(--bg);
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    }
+    .slide {
+      position: absolute; inset: 0;
+      display: none;
+      padding: 88px 120px 96px;
+    }
+    .slide.active { display: block; }
+
+    .hex-bg {
+      position: absolute; inset: 0; opacity: 0.07; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z' fill='none' stroke='%23d4af37' stroke-width='1'/%3E%3Cpath d='M28 34 L56 50 L56 84 L28 100 L0 84 L0 50 Z' fill='none' stroke='%23d4af37' stroke-width='1'/%3E%3C/svg%3E");
+    }
+    .glow {
+      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+    }
+    .glow--gold { width: 520px; height: 520px; background: rgba(212,175,55,0.12); top: -120px; right: -80px; }
+    .glow--blue { width: 400px; height: 400px; background: rgba(60,90,140,0.15); bottom: -100px; left: -60px; }
+
+    .brand {
+      position: absolute; top: 40px; right: 120px;
+      font: 600 13px/1 Montserrat, sans-serif;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+    }
+    .folio {
+      position: absolute; bottom: 40px; left: 120px;
+      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    }
+    .progress {
+      position: absolute; bottom: 0; left: 0; height: 3px; background: var(--gold);
+      transition: width 0.35s ease;
+    }
+
+    h1, h2, h3 { font-family: Montserrat, sans-serif; margin: 0; letter-spacing: -0.02em; }
+    h1 { font-size: 96px; font-weight: 800; line-height: 0.95; }
+    h2 { font-size: 56px; font-weight: 700; margin-bottom: 36px; }
+    h3 { font-size: 28px; font-weight: 600; color: var(--gold); margin-bottom: 12px; }
+    p, li { font-size: 26px; line-height: 1.45; color: var(--text); margin: 0; }
+    .muted { color: var(--muted); }
+    .gold { color: var(--gold); }
+    .eyebrow {
+      font: 600 14px/1 Montserrat, sans-serif;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .rule { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 28px 32px;
+    }
+    .card .num {
+      font: 700 48px/1 Montserrat, sans-serif;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .card .label { font-size: 20px; color: var(--muted); line-height: 1.35; }
+
+    .pill {
+      display: inline-block; padding: 8px 18px; margin: 0 8px 8px 0;
+      border: 1px solid var(--line); font-size: 20px; color: var(--gold-light);
+    }
+
+    ul.clean { list-style: none; padding: 0; margin: 0; }
+    ul.clean li {
+      padding: 14px 0 14px 28px; position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    ul.clean li::before {
+      content: ''; position: absolute; left: 0; top: 24px;
+      width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg);
+    }
+
+    .shot {
+      border: 1px solid var(--line);
+      background: #080b10;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+    }
+    .shot img { display: block; width: 100%; height: auto; }
+    .shot--hero img { object-fit: cover; max-height: 520px; }
+    .shot-caption { padding: 14px 18px; font-size: 18px; color: var(--muted); border-top: 1px solid var(--line); }
+
+    .logo-mark {
+      width: 180px; height: 180px; object-fit: contain;
+      filter: drop-shadow(0 0 24px rgba(212,175,55,0.35));
+    }
+
+    table.mini {
+      width: 100%; border-collapse: collapse; font-size: 20px;
+    }
+    table.mini th, table.mini td {
+      padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line);
+    }
+    table.mini th { color: var(--gold); font-weight: 600; font-size: 18px; }
+
+    .flow {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 24px;
+    }
+    .flow-box {
+      flex: 1; min-width: 200px; padding: 24px; background: var(--panel);
+      border: 1px solid var(--line); text-align: center;
+    }
+    .flow-box strong { display: block; font-size: 22px; color: var(--gold); margin-bottom: 8px; }
+    .flow-box span { font-size: 18px; color: var(--muted); }
+    .flow-arrow { font-size: 32px; color: var(--gold); }
+
+    .title-slide { display: flex; flex-direction: column; justify-content: center; height: 100%; padding-right: 40%; }
+    .title-slide .sub { font-size: 30px; margin-top: 28px; max-width: 720px; color: var(--muted); }
+    .title-slide .meta { margin-top: 48px; font-size: 22px; color: var(--gold-light); }
+
+    .chrome {
+      position: fixed; z-index: 20; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 16px; align-items: center;
+    }
+    .chrome button {
+      background: rgba(20,27,40,0.92); color: var(--text);
+      border: 1px solid var(--line); padding: 12px 22px;
+      font: 500 15px Inter, sans-serif; cursor: pointer;
+    }
+    .chrome button:hover { border-color: var(--gold); color: var(--gold); }
+    .counter { font-size: 14px; color: var(--muted); min-width: 64px; text-align: center; }
+
+    @media print {
+      @page { size: 1920px 1080px; margin: 0; }
+      html, body { background: white; }
+      .stage { position: static; display: block; height: auto; }
+      .canvas { transform: none !important; box-shadow: none; page-break-after: always; }
+      .slide { display: block !important; }
+      .chrome { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="canvas" id="canvas">
+
+      <!-- 01 TITLE -->
+      <section class="slide active" data-label="Титул">
+        <div class="hex-bg"></div><div class="glow glow--gold"></div><div class="glow glow--blue"></div>
+        <div class="brand">gurza36.ru</div>
+        <div class="title-slide">
+          <p class="eyebrow">Частная охранная организация · с 2011</p>
+          <h1><span class="gold">ГЮРЗА</span><br>Цифровое лицо<br>компании</h1>
+          <p class="sub">Презентация проекта: сайт, роль, потенциал и база возможных клиентов в Воронеже</p>
+          <p class="meta">ЧОО «Гюрза» · Воронеж · 2026</p>
+        </div>
+        <img class="logo-mark" style="position:absolute;right:120px;top:50%;transform:translateY(-50%)" src="assets/favicon.png" alt="">
+        <div class="folio">01 / 10</div>
+        <div class="progress" style="width:10%"></div>
+      </section>
+
+      <!-- 02 ESSENCE -->
+      <section class="slide" data-label="О главном">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">О главном</p>
+        <h2>Суть проекта</h2>
+        <div class="grid-2">
+          <div>
+            <p><strong class="gold">ЧОО «Гюрза»</strong> — частная охранная организация в Воронеже с 2011 года. Специализация: охрана административных зданий, строек, складов, агропредприятий и зерновых баз.</p>
+            <hr class="rule">
+            <p class="muted">Сайт — не «визитка ради галочки», а <strong style="color:var(--text)">рабочий инструмент продаж и доверия</strong>: клиент за 30 секунд понимает, кто вы, чем сильны и как связаться.</p>
+          </div>
+          <div class="grid-2" style="gap:20px">
+            <div class="card"><div class="num">15+</div><div class="label">лет на рынке охранных услуг</div></div>
+            <div class="card"><div class="num">24/7</div><div class="label">непрерывная охрана объектов</div></div>
+            <div class="card"><div class="num">6</div><div class="label">ключевых направлений услуг</div></div>
+            <div class="card"><div class="num">2</div><div class="label">региона: Воронеж и область</div></div>
+          </div>
+        </div>
+        <div class="folio">02 / 10</div>
+        <div class="progress" style="width:20%"></div>
+      </section>
+
+      <!-- 03 WHAT WE DO -->
+      <section class="slide" data-label="Что делаем">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">Что мы делаем</p>
+        <h2>Услуги на сайте</h2>
+        <div class="grid-3">
+          <div class="card"><h3>Административные здания</h3><p class="muted" style="font-size:20px">Офисы, бизнес-центры, порядок и безопасность персонала</p></div>
+          <div class="card"><h3>Строительные объекты</h3><p class="muted" style="font-size:20px">Площадки, техника, материалы на всех этапах</p></div>
+          <div class="card"><h3>Складские помещения</h3><p class="muted" style="font-size:20px">ТМЦ, логистика, сохранность грузов</p></div>
+          <div class="card"><h3>Пропускной режим</h3><p class="muted" style="font-size:20px">КПП, контроль доступа, внутриобъектовый режим</p></div>
+          <div class="card"><h3>Сельхозпредприятия</h3><p class="muted" style="font-size:20px">Зерновые и масличные базы — ключевая специализация</p></div>
+          <div class="card"><h3>Анализ угроз</h3><p class="muted" style="font-size:20px">Оценка объекта и индивидуальная система охраны</p></div>
+        </div>
+        <div class="folio">03 / 10</div>
+        <div class="progress" style="width:30%"></div>
+      </section>
+
+      <!-- 04 SITE ROLE -->
+      <section class="slide" data-label="Роль сайта">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">Роль сайта</p>
+        <h2>Зачем он бизнесу</h2>
+        <div class="flow">
+          <div class="flow-box"><strong>Поиск</strong><span>Яндекс / Google / 2ГИС</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box"><strong>gurza36.ru</strong><span>Доверие за 30 сек</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box"><strong>Звонок</strong><span>+7 (473) 278-51-47</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box"><strong>Договор</strong><span>Новый объект</span></div>
+        </div>
+        <hr class="rule">
+        <div class="grid-2">
+          <ul class="clean">
+            <li><strong>Лицо компании</strong> — профессиональный образ вместо «просто телефона в 2ГИС»</li>
+            <li><strong>Круглосуточная витрина</strong> — работает, пока офис спит</li>
+            <li><strong>Доказательство экспертизы</strong> — услуги, опыт, специализация на агро</li>
+          </ul>
+          <ul class="clean">
+            <li><strong>Единая ссылка</strong> — для визиток, КП, тендеров, соцсетей</li>
+            <li><strong>SEO-магнит</strong> — «охрана воронеж», «чоо», «охрана складов»</li>
+            <li><strong>Фильтр клиентов</strong> — сразу видно, подходите ли вы под задачу</li>
+          </ul>
+        </div>
+        <div class="folio">04 / 10</div>
+        <div class="progress" style="width:40%"></div>
+      </section>
+
+      <!-- 05 SCREENSHOTS -->
+      <section class="slide" data-label="Сайт">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">Как выглядит</p>
+        <h2>Скриншоты сайта</h2>
+        <div class="grid-2" style="gap:24px;align-items:start">
+          <div>
+            <div class="shot shot--hero" style="margin-bottom:18px">
+              <img src="assets/screens/01-main.png" alt="Главная страница">
+              <div class="shot-caption">Главная — 3D-соты, заголовок, CTA</div>
+            </div>
+            <div class="shot">
+              <img src="assets/screens/02-about.png" alt="О компании">
+              <div class="shot-caption">О компании — история и специализация на агро</div>
+            </div>
+          </div>
+          <div>
+            <div class="shot" style="margin-bottom:18px">
+              <img src="assets/screens/03-contacts.png" alt="Контакты и визитка">
+              <div class="shot-caption">Контакты — цифровая визитка директора</div>
+            </div>
+            <div class="shot">
+              <img src="assets/screens/04-logo.png" alt="Логотип">
+              <div class="shot-caption">Логотип — золотая сота и змея-гюрза</div>
+            </div>
+          </div>
+        </div>
+        <div class="folio">05 / 10</div>
+        <div class="progress" style="width:50%"></div>
+      </section>
+
+      <!-- 06 TECH -->
+      <section class="slide" data-label="Технологии">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">Под капотом</p>
+        <h2>Что уже реализовано</h2>
+        <div class="grid-2">
+          <div>
+            <h3>Дизайн и UX</h3>
+            <ul class="clean">
+              <li>Одностраничный лендинг — вся информация без лишних кликов</li>
+              <li>Фирменная эмблема: золотая сота + змея premium</li>
+              <li>Анимации: Framer Motion, GSAP, Three.js (3D-соты)</li>
+              <li>Тёмная премиальная палитра — выделяет среди конкурентов</li>
+            </ul>
+          </div>
+          <div>
+            <h3>SEO и инфраструктура</h3>
+            <ul class="clean">
+              <li>Домен <strong class="gold">gurza36.ru</strong> + SSL</li>
+              <li>robots.txt, sitemap.xml, canonical, JSON-LD</li>
+              <li>Open Graph — красивые превью в Telegram / VK</li>
+              <li>Хостинг Vercel — быстрая загрузка по всей России</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:32px">
+          <span class="pill">React 19</span>
+          <span class="pill">TypeScript</span>
+          <span class="pill">Vite</span>
+          <span class="pill">Three.js</span>
+          <span class="pill">Framer Motion</span>
+          <span class="pill">Vercel CDN</span>
+        </div>
+        <div class="folio">06 / 10</div>
+        <div class="progress" style="width:60%"></div>
+      </section>
+
+      <!-- 07 POTENTIAL -->
+      <section class="slide" data-label="Потенциал">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">Потенциал</p>
+        <h2>Куда может вырасти</h2>
+        <div class="grid-4">
+          <div class="card"><div class="num">1–2 мес</div><div class="label">Индексация в Яндексе и Google по бренду «Гюрза»</div></div>
+          <div class="card"><div class="num">3–6 мес</div><div class="label">Запросы «охрана воронеж», «чоо воронеж»</div></div>
+          <div class="card"><div class="num">∞</div><div class="label">Заявки 24/7 без участия менеджера</div></div>
+          <div class="card"><div class="num">B2B</div><div class="label">КП, тендеры, холодные продажи по базе</div></div>
+        </div>
+        <hr class="rule">
+        <div class="grid-2">
+          <div>
+            <h3>Ближайшие шаги для роста</h3>
+            <ul class="clean">
+              <li>Яндекс.Вебмастер + Google Search Console</li>
+              <li>Карточка в Яндекс.Бизнес и 2ГИС со ссылкой на сайт</li>
+              <li>Отзывы клиентов — усиливают локальный рейтинг</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Дальше по желанию</h3>
+            <ul class="clean">
+              <li>Яндекс.Директ — быстрые заявки параллельно SEO</li>
+              <li>Страницы под ниши: «охрана элеваторов», «охрана складов»</li>
+              <li>CRM-интеграция: форма заявки → Telegram / почта</li>
+            </ul>
+          </div>
+        </div>
+        <div class="folio">07 / 10</div>
+        <div class="progress" style="width:70%"></div>
+      </section>
+
+      <!-- 08 CLIENTS -->
+      <section class="slide" data-label="Клиенты">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">Продажи</p>
+        <h2>База возможных клиентов</h2>
+        <div class="grid-2">
+          <div>
+            <p>Подготовлена Excel-таблица компаний Воронежа и области — потенциальные заказчики охраны.</p>
+            <hr class="rule">
+            <div class="grid-2" style="gap:16px">
+              <div class="card"><div class="num">125+</div><div class="label">компаний в базе</div></div>
+              <div class="card"><div class="num">6</div><div class="label">отраслей</div></div>
+            </div>
+            <p class="muted" style="font-size:20px;margin-top:20px">Файл: <strong style="color:var(--gold)">clients-voronezh-gyurza.xlsx</strong></p>
+          </div>
+          <div>
+            <table class="mini">
+              <thead><tr><th>Колонка</th><th>Зачем</th></tr></thead>
+              <tbody>
+                <tr><td>Компания / Отрасль</td><td>Кому звонить</td></tr>
+                <tr><td>Масштаб компании</td><td>Малый / Средний / Крупный</td></tr>
+                <tr><td>Телефон / Email</td><td>Прямой контакт</td></tr>
+                <tr><td>Приоритет</td><td>Кого обзванивать первым</td></tr>
+                <tr><td>Релевантная услуга</td><td>Точка входа в разговор</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="folio">08 / 10</div>
+        <div class="progress" style="width:80%"></div>
+      </section>
+
+      <!-- 09 ROADMAP -->
+      <section class="slide" data-label="План">
+        <div class="hex-bg"></div><div class="brand">gurza36.ru</div>
+        <p class="eyebrow">Дальше больше</p>
+        <h2>Дорожная карта</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Сейчас</h3>
+            <ul class="clean" style="margin-top:16px">
+              <li style="font-size:20px">Сайт live на gurza36.ru</li>
+              <li style="font-size:20px">SEO-разметка готова</li>
+              <li style="font-size:20px">База клиентов Excel</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>На этой неделе</h3>
+            <ul class="clean" style="margin-top:16px">
+              <li style="font-size:20px">Яндекс.Вебмастер</li>
+              <li style="font-size:20px">2ГИС / Яндекс.Бизнес</li>
+              <li style="font-size:20px">Обзвон высокого приоритета</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Через месяц</h3>
+            <ul class="clean" style="margin-top:16px">
+              <li style="font-size:20px">Первые SEO-позиции</li>
+              <li style="font-size:20px">Отзывы в картах</li>
+              <li style="font-size:20px">Расширение базы до 150+</li>
+            </ul>
+          </div>
+        </div>
+        <div class="folio">09 / 10</div>
+        <div class="progress" style="width:90%"></div>
+      </section>
+
+      <!-- 10 CONTACTS -->
+      <section class="slide" data-label="Контакты">
+        <div class="hex-bg"></div><div class="glow glow--gold"></div>
+        <div class="brand">gurza36.ru</div>
+        <div class="title-slide" style="padding-right:50%">
+          <p class="eyebrow">Контакты</p>
+          <h2 style="font-size:72px">ЧОО «Гюрза»</h2>
+          <p class="sub" style="font-size:28px;color:var(--text)">
+            <span class="gold">gurza36.ru</span><br><br>
+            +7 (473) 278-51-47<br>
+            +7 (900) 954-43-12<br><br>
+            mike1592@yandex.ru<br><br>
+            <span class="muted">394016, г. Воронеж, ул. Солнечная, 17/1, офис 4</span>
+          </p>
+        </div>
+        <img class="logo-mark" style="position:absolute;right:160px;top:50%;transform:translateY(-50%)" src="assets/logo-snake.png" alt="">
+        <div class="folio">10 / 10</div>
+        <div class="progress" style="width:100%"></div>
+      </section>
+
+    </div>
+  </div>
+
+  <nav class="chrome">
+    <button id="prev">← Назад</button>
+    <span class="counter" id="counter">1/10</span>
+    <button id="next">Далее →</button>
+  </nav>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('canvas');
+      const slides = [...document.querySelectorAll('.slide')];
+      const counter = document.getElementById('counter');
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const KEY = 'gyurza-deck-index';
+      let idx = Number(localStorage.getItem(KEY)) || 0;
+
+      function go(to) {
+        idx = Math.max(0, Math.min(slides.length - 1, to));
+        slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+        counter.textContent = `${idx + 1}/${slides.length}`;
+        localStorage.setItem(KEY, String(idx));
+      }
+
+      function fit() {
+        const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        canvas.style.transform = `scale(${s})`;
+      }
+
+      prev.addEventListener('click', () => go(idx - 1));
+      next.addEventListener('click', () => go(idx + 1));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(idx - 1);
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(idx + 1); }
+        if (e.key === 'Home') go(0);
+        if (e.key === 'End') go(slides.length - 1);
+      });
+      window.addEventListener('resize', fit);
+      fit();
+      go(idx);
+    })();
+  </script>
+</body>
+</html>

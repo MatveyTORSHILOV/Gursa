@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Премиальная презентация ЧОО «Гюрза» — фоны, переходы, скриншоты."""
+"""Презентация ЧОО «Гюрza» — об организации, фоны, переходы."""
 from __future__ import annotations
 
 import math
@@ -211,46 +211,47 @@ fill_bg(s, bgs["dark"])
 if (SCREENS / "04-logo.png").exists():
     s.shapes.add_picture(str(SCREENS / "04-logo.png"), Inches(9.2), Inches(1.5), width=Inches(3.3))
 add_text(s, 0.75, 1.8, 8.5, 1.2, [("ГЮРЗА", 80, GOLD, True)])
-add_text(s, 0.75, 3.0, 8.5, 1.0, [("Цифровое лицо", 44, TEXT, True)])
-add_text(s, 0.75, 3.75, 8.5, 1.0, [("охранной компании", 44, TEXT, False)])
-add_text(s, 0.78, 5.0, 7, 0.5, [("Частная охранная организация · Воронеж · с 2011", 18, MUTED, False)])
-add_text(s, 0.78, 5.55, 7, 0.5, [("gurza36.ru", 22, GOLD_L, True)])
+add_text(s, 0.75, 3.0, 8.5, 1.0, [("Частная охранная", 44, TEXT, True)])
+add_text(s, 0.75, 3.75, 8.5, 1.0, [("организация", 44, TEXT, False)])
+add_text(s, 0.78, 5.0, 7, 0.5, [("Воронеж и Воронежская область · с 2011 года", 18, MUTED, False)])
+add_text(s, 0.78, 5.55, 7, 0.5, [("Безопасность, проверенная временем", 20, GOLD_L, True)])
 set_transition(s, "fade")
 
 # 02 SECTION
-add_section_slide(prs, "01", "О проекте", "Суть, миссия и позиционирование")
+add_section_slide(prs, "01", "О компании", "Кто мы и чем занимаемся")
 
-# 03 ESSENCE
+# 03 ABOUT
 s = prs.slides.add_slide(blank)
 fill_bg(s, bgs["dark"])
 add_brand_bar(s)
-add_text(s, 0.7, 1.0, 10, 0.5, [("СУТЬ", 14, GOLD, True)])
-add_text(s, 0.7, 1.45, 11, 0.8, [("Безопасность, проверенная временем", 38, TEXT, True)])
-add_text(s, 0.7, 2.35, 6.2, 1.8, [
-    ("ЧОО «Гюрза» — частная охранная организация в Воронеже и области.", 18, TEXT, False),
+add_text(s, 0.7, 1.0, 10, 0.5, [("О КОМПАНИИ", 14, GOLD, True)])
+add_text(s, 0.7, 1.45, 11, 0.8, [("Работаем с 2011 года — и знаем цену доверию", 34, TEXT, True)])
+add_text(s, 0.7, 2.5, 11, 2.2, [
+    ("ООО ЧОО «Гюрза» оказывает услуги частной охраны высокого качества", 18, TEXT, False),
+    ("по доступным ценам — для физических и юридических лиц.", 18, TEXT, False),
     ("", 8, TEXT, False),
-    ("Сайт — не визитка ради галочки, а инструмент доверия и продаж.", 18, GOLD_L, True),
+    ("Разовые задачи и долгосрочные договоры. Воронеж и область.", 17, MUTED, False),
     ("", 8, TEXT, False),
-    ("Клиент за 30 секунд понимает: кто вы, чем сильны, как связаться.", 17, MUTED, False),
+    ("Гюрза — символ молниеносной реакции и абсолютного контроля территории.", 17, GOLD_L, True),
 ])
-add_stat_row(s, [("15+", "лет на рынке"), ("24/7", "охрана объектов"), ("6", "направлений услуг")], top=4.8)
+add_stat_row(s, [("2011", "год основания"), ("24/7", "охрана объектов"), ("100%", "опытные специалисты")], top=5.0)
 set_transition(s, "fade")
 
 # 04 SECTION services
-add_section_slide(prs, "02", "Что мы делаем", "Услуги и специализация")
+add_section_slide(prs, "02", "Услуги", "Что мы охраняем")
 
 # 05 SERVICES
 s = prs.slides.add_slide(blank)
 fill_bg(s, bgs["dark"])
 add_brand_bar(s)
-add_text(s, 0.7, 1.0, 10, 0.6, [("УСЛУГИ", 14, GOLD, True)])
+add_text(s, 0.7, 1.0, 10, 0.6, [("УСЛУГИ ПОД КЛЮЧ", 14, GOLD, True)])
 services = [
-    ("Административные здания", "Офисы, бизнес-центры, порядок и безопасность"),
-    ("Строительные объекты", "Площадки, техника, материалы"),
-    ("Складские помещения", "ТМЦ, логистика, сохранность"),
-    ("Пропускной режим", "КПП, контроль доступа"),
-    ("Сельхозпредприятия", "Зерновые и масличные базы — ключевая специализация"),
-    ("Анализ угроз", "Экспертная оценка и система охраны"),
+    ("Административные здания", "Офисы, бизнес-центры, порядок и безопасность персонала"),
+    ("Строительные объекты", "Площадки, техника, материалы на всех этапах"),
+    ("Складские помещения", "ТМЦ, логистика, сохранность грузов"),
+    ("Пропускной режим", "КПП, контроль доступа, внутриобъектовый режим"),
+    ("Сельхозпредприятия", "Зерновые и масличные базы — наша специализация"),
+    ("Анализ угроз", "Оценка объекта и индивидуальная система охраны"),
 ]
 for i, (title, desc) in enumerate(services):
     col = i % 2
@@ -265,97 +266,113 @@ for i, (title, desc) in enumerate(services):
     add_text(s, left + 0.15, top + 0.58, 5.6, 0.7, [(desc, 13, MUTED, False)])
 set_transition(s, "fade")
 
-# 06 SECTION site
-add_section_slide(prs, "03", "Сайт gurza36.ru", "Дизайн, технологии, скриншоты")
+# 06 SECTION advantages
+add_section_slide(prs, "03", "Преимущества", "Почему выбирают нас")
 
-# 07-10 Screenshots
-add_screenshot_slide(prs, "Главная страница", "3D-соты · золотой брендинг · CTA", SCREENS / "01-main.png", "push")
-add_screenshot_slide(prs, "О компании", "История · доверие · специализация на агро", SCREENS / "02-about.png")
-add_screenshot_slide(prs, "Контакты", "Цифровая визитка директора · прямой набор", SCREENS / "03-contacts.png", "push")
-add_screenshot_slide(prs, "Брендинг", "Золотая сота и змея-гюрза", SCREENS / "04-logo.png")
-
-# 11 ROLE
+# 07 ADVANTAGES
 s = prs.slides.add_slide(blank)
 fill_bg(s, bgs["dark"])
 add_brand_bar(s)
-add_text(s, 0.7, 1.0, 10, 0.5, [("РОЛЬ САЙТА", 14, GOLD, True)])
-add_text(s, 0.7, 1.5, 11, 0.7, [("Воронка продаж", 36, TEXT, True)])
-flow = ["Яндекс / Google / 2ГИС", "gurza36.ru", "Звонок", "Договор"]
-for i, step in enumerate(flow):
-    left = 0.7 + i * 3.1
-    sh = s.shapes.add_shape(1, Inches(left), Inches(2.5), Inches(2.7), Inches(0.9))
-    sh.fill.solid()
-    sh.fill.fore_color.rgb = PANEL if i != 1 else RGBColor(40, 34, 18)
-    sh.line.color.rgb = GOLD
-    add_text(s, left + 0.1, 2.65, 2.5, 0.6, [(step, 15, GOLD_L if i == 1 else TEXT, i == 1)], align=PP_ALIGN.CENTER)
-    if i < 3:
-        add_text(s, left + 2.75, 2.72, 0.4, 0.4, [("→", 20, GOLD, True)])
+add_text(s, 0.7, 1.0, 10, 0.5, [("ПРЕИМУЩЕСТВА", 14, GOLD, True)])
+add_text(s, 0.7, 1.5, 11, 0.7, [("Сотрудничая с нами, вы получаете", 32, TEXT, True)])
+add_stat_row(s, [
+    (f"{2026 - 2011}+", "лет на рынке охранных услуг"),
+    ("100%", "специалисты высокого класса"),
+    ("24/7", "непрерывная охрана"),
+], top=2.5)
 add_bullets(s, [
-    "Лицо компании — профессиональный образ 24/7",
-    "Единая ссылка для визиток, КП, тендеров",
-    "SEO по запросам: «охрана воронеж», «чоо», «охрана складов»",
-    "Фильтр клиентов — сразу видно, подходите ли под задачу",
-], top=3.8, size=18)
+    "Любой бюджет — от экономного до высокобюджетного решения",
+    "Индивидуальный подход к каждому объекту",
+    "Оперативная реакция и чёткий контроль территории",
+    "Профессиональная оценка рисков перед началом работы",
+], top=4.3, size=18)
 set_transition(s, "fade")
 
-# 12 TECH + SEO
+# 08 SPECIALIZATION
 s = prs.slides.add_slide(blank)
 fill_bg(s, bgs["dark"])
 add_brand_bar(s)
-add_text(s, 0.7, 1.0, 10, 0.5, [("ТЕХНОЛОГИИ И SEO", 14, GOLD, True)])
-add_bullets(s, [
-    "React 19 · TypeScript · Three.js · Framer Motion · Vercel CDN",
-    "Домен gurza36.ru + SSL · canonical · JSON-LD · robots.txt · sitemap",
-    "Open Graph — красивые превью в Telegram и VK",
-    "Яндекс.Вебмастер + 2ГИС = ускорение индексации",
-], top=1.6, size=17)
-add_stat_row(s, [("1–2 мес", "индекс по бренду"), ("3–6 мес", "локальные запросы"), ("∞", "заявки 24/7")], top=4.5)
+add_text(s, 0.7, 1.0, 10, 0.5, [("СПЕЦИАЛИЗАЦИЯ", 14, GOLD, True)])
+add_text(s, 0.7, 1.45, 11, 0.8, [("Охрана агропредприятий и зерновых баз", 34, TEXT, True)])
+add_text(s, 0.7, 2.5, 6.5, 2.5, [
+    ("Особая компетенция — охрана сельхозпредприятий и баз", 18, TEXT, False),
+    ("по приёмке, подработке, хранению и отпуску", 18, TEXT, False),
+    ("зерновых и масличной продукции.", 18, GOLD_L, True),
+    ("", 10, TEXT, False),
+    ("Понимаем специфику сезонных рисков, логистики и", 17, MUTED, False),
+    ("сохранности урожая — работаем точечно под задачу.", 17, MUTED, False),
+])
+if (SCREENS / "02-about.png").exists():
+    s.shapes.add_picture(str(SCREENS / "02-about.png"), Inches(7.3), Inches(1.8), width=Inches(5.5))
 set_transition(s, "fade")
 
-# 13 CLIENTS
+# 09 GEO + OBJECTS
 s = prs.slides.add_slide(blank)
 fill_bg(s, bgs["dark"])
 add_brand_bar(s)
-add_text(s, 0.7, 1.0, 10, 0.5, [("БАЗА КЛИЕНТОВ", 14, GOLD, True)])
-add_text(s, 0.7, 1.5, 11, 0.7, [("Excel — 125+ компаний Воронежа", 34, TEXT, True)])
+add_text(s, 0.7, 1.0, 10, 0.5, [("ГЕОГРАФИЯ", 14, GOLD, True)])
+add_text(s, 0.7, 1.45, 11, 0.7, [("Воронеж и Воронежская область", 36, TEXT, True)])
 add_bullets(s, [
-    "Отрасли: стройка, склады, агро, бизнес-центры, логистика",
-    "Колонки: компания, телефон, email, приоритет, услуга",
-    "Высокий приоритет подсвечен — с чего начать обзвон",
-    "Файл: clients-voronezh-gyurza.xlsx",
-], top=2.4, size=18)
+    "Административные и офисные здания",
+    "Строительные площадки и объекты на всех стадиях",
+    "Склады, логистические и производственные комплексы",
+    "Сельхозпредприятия, элеваторы, зерновые базы",
+    "Объекты с пропускным и внутриобъектовым режимом",
+], top=2.4, size=19)
 set_transition(s, "fade")
 
-# 14 ROADMAP
+# 10 WEBSITE — кратко
 s = prs.slides.add_slide(blank)
 fill_bg(s, bgs["dark"])
 add_brand_bar(s)
-add_text(s, 0.7, 1.0, 10, 0.5, [("ДОРОЖНАЯ КАРТА", 14, GOLD, True)])
-cols = [
-    ("Сейчас", ["Сайт live", "SEO готово", "База Excel"]),
-    ("Неделя", ["Яндекс.Вебмастер", "2ГИС / Я.Бизнес", "Обзвон"]),
-    ("Месяц", ["SEO-позиции", "Отзывы", "150+ клиентов"]),
-]
-for i, (title, items) in enumerate(cols):
-    left = 0.7 + i * 4.1
-    sh = s.shapes.add_shape(1, Inches(left), Inches(1.7), Inches(3.8), Inches(4.5))
-    sh.fill.solid()
-    sh.fill.fore_color.rgb = PANEL
-    sh.line.color.rgb = GOLD
-    add_text(s, left + 0.2, 1.9, 3.4, 0.5, [(title, 22, GOLD, True)])
-    add_bullets(s, items, left=left + 0.15, top=2.5, width=3.5, size=15)
-set_transition(s, "push")
+add_text(s, 0.7, 1.0, 10, 0.5, [("КОНТАКТЫ", 14, GOLD, True)])
+add_text(s, 0.7, 1.45, 11, 0.7, [("Связаться с нами", 36, TEXT, True)])
+add_text(s, 0.7, 2.3, 5.8, 2.8, [
+    ("Официальный сайт:", 16, MUTED, False),
+    ("gurza36.ru", 28, GOLD_L, True),
+    ("", 8, TEXT, False),
+    ("Телефоны:", 16, MUTED, False),
+    ("+7 (473) 278-51-47", 20, TEXT, True),
+    ("+7 (900) 954-43-12", 20, TEXT, True),
+    ("", 8, TEXT, False),
+    ("Email: mike1592@yandex.ru", 17, TEXT, False),
+])
+add_text(s, 0.7, 5.2, 6, 1.2, [
+    ("394016, г. Воронеж,", 16, MUTED, False),
+    ("ул. Солнечная, 17/1, офис 4", 16, MUTED, False),
+])
+if (SCREENS / "03-contacts.png").exists():
+    s.shapes.add_picture(str(SCREENS / "03-contacts.png"), Inches(6.8), Inches(1.9), width=Inches(6.0))
+set_transition(s, "fade")
 
-# 15 FINALE
+# 11 DIRECTOR
+s = prs.slides.add_slide(blank)
+fill_bg(s, bgs["dark"])
+add_brand_bar(s)
+add_text(s, 0.7, 1.0, 10, 0.5, [("РУКОВОДСТВО", 14, GOLD, True)])
+add_text(s, 0.7, 1.8, 11, 0.8, [("Самофалов Михаил Иванович", 36, TEXT, True)])
+add_text(s, 0.7, 2.7, 11, 0.5, [("Директор ООО ЧОО «Гюрза»", 22, GOLD, True)])
+add_text(s, 0.7, 3.5, 10, 1.5, [
+    ("Готовы обсудить охрану вашего объекта,", 18, TEXT, False),
+    ("провести экспертную оценку и предложить", 18, TEXT, False),
+    ("оптимальный вариант охраны под ваш бюджет.", 18, TEXT, False),
+])
+add_bullets(s, [
+    "Звоните — проконсультируем и ответим на все вопросы",
+    "Выезд на объект для оценки угроз",
+    "Гибкие условия: разовые и долгосрочные договоры",
+], top=4.8, size=18)
+set_transition(s, "fade")
+
+# 12 FINALE
 s = prs.slides.add_slide(blank)
 fill_bg(s, bgs["dark"])
 if (SCREENS / "04-logo.png").exists():
     s.shapes.add_picture(str(SCREENS / "04-logo.png"), Inches(5.3), Inches(0.8), width=Inches(2.6))
 add_text(s, 0.75, 3.2, 12, 0.8, [("ЧОО «Гюрза»", 48, GOLD, True)], align=PP_ALIGN.CENTER)
 add_text(s, 0.75, 4.1, 12, 1.5, [
-    ("gurza36.ru", 24, GOLD_L, True),
     ("+7 (473) 278-51-47  ·  +7 (900) 954-43-12", 18, TEXT, False),
-    ("mike1592@yandex.ru", 18, TEXT, False),
+    ("mike1592@yandex.ru  ·  gurza36.ru", 18, GOLD_L, False),
     ("394016, г. Воронеж, ул. Солнечная, 17/1, офис 4", 16, MUTED, False),
 ], align=PP_ALIGN.CENTER)
 set_transition(s, "fade")
